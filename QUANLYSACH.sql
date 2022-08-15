@@ -176,10 +176,37 @@ ORDER BY SO_LUONG_CON DESC;
 -- Mã Bạn Đọc, Tên Bạn Đọc, Mã Sách, Tên Sách, Ngày Giờ Mượn, Số lượng
 -- Sắp xếp theo ngày giờ mượn giảm dần, Tên bạn đọc tăng dần.
 
+Select BD_MA, BD_TEN, SACH_MA, SACH_TEN,NGAY_MUON,SO_LUONG
+FROM DANHVINH_BANDOC JOIN DANHVINH_MUONSACH ON DANHVINH_BANDOC.BD_ID = DANHVINH_MUONSACH.BD_ID
+JOIN DANHVINH_SACH ON DANHVINH_MUONSACH.SACH_ID = DANHVINH_SACH.SACH_ID
+WHERE (SELECT TO_CHAR(TRUNC(SYSDATE),'MONTH') FROM DUAL) < (SELECT TO_CHAR(SYSDATE) FROM DUAL);
+
+-- CAU 8.Hiển thị 10 quyển sách có số lượng được mượn nhiều nhất tính từ đầu năm 2022
+-- Mã Sách, Tên Sách, Số Lượng Đã Được Mượn.
+SELECT SACH_MA, SACH_TEN, SO_LUONG_MUON
+FROM DANHVINH_SACH
+WHERE (SELECT TO_CHAR(TRUNC(SYSDATE),'YEAR') FROM DUAL) < (SELECT TO_CHAR(SYSDATE) FROM DUAL)
+AND ROWNUM < 10
+ORDER BY SO_LUONG_MUON DESC;
+
+
+-- CÂU 9.	Hiển thị danh sách bạn đọc và số lần mượn sách tính từ đầu năm 2022 sắp xếp theo
+-- tên bạn đọc tăng dần:
+-- Mã Bạn Đọc, Tên Bạn Đọc, Số Lần Mượn
+SELECT BD_MA, BD_TEN,COUNT(BD_ID) SOLANMUON
+FROM DANHVINH_BANDOC
+WHERE (SELECT TO_CHAR(TRUNC(SYSDATE),'YEAR') FROM DUAL) < (SELECT TO_CHAR(SYSDATE) FROM DUAL)
+GROUP BY BD_MA, BD_TEN
+ORDER BY BD_TEN ASC;
 
 --CÂU 10: Hiển thị thông tin bạn đọc gồm có:
 --Mã Bạn Đọc, Tên Bạn Đọc, Tuổi (được tính dựa vào trường ngày sinh)
 SELECT BD_MA,BD_TEN, TO_NUMBER(TO_CHAR(SYSDATE,'YYYY')) - TO_NUMBER(TO_CHAR(NGAY_SINH,'YYYY')) AS TUỔI
 FROM DANHVINH_BANDOC;
+--CÂU 11.	Thống kê tổng số bạn đọc theo độ tuổi
+-- Tuổi, Tổng số Bạn Đọc
+SELECT TO_NUMBER(TO_CHAR(SYSDATE,'YYYY')) - TO_NUMBER(TO_CHAR(NGAY_SINH,'YYYY')) AS TUỔI, COUNT(BD_ID) AS TONG_SO_BAN_DOC
+FROM DANHVINH_BANDOC
+GROUP BY TO_NUMBER(TO_CHAR(SYSDATE,'YYYY')) - TO_NUMBER(TO_CHAR(NGAY_SINH,'YYYY'));
 
 
