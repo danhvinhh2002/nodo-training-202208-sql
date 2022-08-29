@@ -11,6 +11,8 @@
     <title>Add New Student</title>
 </head>
 <body>
+    ID: ${student.id}
+    <br>
     Name: ${student.name}
     <br>
     Age: ${student.age}
