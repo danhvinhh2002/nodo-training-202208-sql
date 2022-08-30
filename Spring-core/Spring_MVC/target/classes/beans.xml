@@ -72,4 +72,8 @@
 <!--	<jdbc:embedded-database type="DERBY" id="dataSource"-->
 	<!--        <jdbc:script location="classpath:schema.sql"></jdbc:script>-->
 	<!--    </jdbc:embedded-database>-->
+<bean id="viewResolver" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
+	<property name="order" value="1"/>
+	<property name="basename" value="/WEB-INF/views.xml"/>
+</bean>
 </beans>

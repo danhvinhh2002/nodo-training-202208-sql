@@ -9,4 +9,5 @@ public interface StudentDAO {
     public List<Student> list();
     public void deleteById(Integer id);
     public Student getById(Integer id);
+    public void update(Student student);
 }

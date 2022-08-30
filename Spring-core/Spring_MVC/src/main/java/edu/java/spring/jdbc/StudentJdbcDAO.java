@@ -128,9 +128,9 @@ public class StudentJdbcDAO {
     }
     public int[] add(List<Student> students){
         List<Object[]> batch =new ArrayList<>();
-        students.forEach(student -> batch.add(new Object[]{
-                student.getId(),student.getName(),student.getAge()
-        }));
+//        students.forEach(student -> batch.add(new Object[]{
+//                student.getId(),student.getName(),student.getAge()
+//        }));
         return jdbcTemplate.batchUpdate(insertQuery,batch);
     }
     public void save(Object id,Object name, Object age){

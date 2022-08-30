@@ -4,7 +4,11 @@ import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name = "item")
 public class Student {
     private int id;
     @NotBlank
@@ -27,6 +31,7 @@ public class Student {
         this.age = age;
     }
 
+    @XmlAttribute
     public int getId() {
         return id;
     }
@@ -34,7 +39,7 @@ public class Student {
     public void setId(int id) {
         this.id = id;
     }
-
+    @XmlElement
     public String getName() {
         return name;
     }
@@ -42,7 +47,7 @@ public class Student {
     public void setName(String name) {
         this.name = name;
     }
-
+    @XmlElement
     public int getAge() {
         return age;
     }

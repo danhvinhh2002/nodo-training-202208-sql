@@ -68,7 +68,12 @@ public class StudentDAOImpl implements StudentDAO, DisposableBean {
     @Override
     public Student getById(Integer id) {
         StudentRowMapper mapper = new StudentRowMapper();
-        return jdbcTemplate.queryForObject("SELECT * FROM DV_STUDENT WHERE ID= "+id,mapper);
+        return jdbcTemplate.queryForObject("SELECT * FROM DV_STUDENT WHERE ID= "+id,new StudentRowMapper());
+    }
+
+    @Override
+    public void update(Student student) {
+        jdbcTemplate.update("Update DV_STUDENT SET NAME = ? WHERE ID = ?",student.getName(),student.getId());
     }
 
     @Override
